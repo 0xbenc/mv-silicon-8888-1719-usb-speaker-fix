@@ -4,13 +4,13 @@
 #   1) ALSA hardware "PCM" control -> PCM_VOLUME  (as root; the layer that silently drifts to 0)
 #   2) PipeWire sink volume        -> PW_VOLUME   (in the user's session; best effort)
 
-# ---- configurable levels -----------------------------------------------------
+# ---- configuration -----------------------------------------------------------
+# Fallback defaults; /etc/default/usb-speaker (if present) is the single source of truth.
 PCM_VOLUME=100%
 PW_VOLUME=40%
-
-# ---- device identifiers ------------------------------------------------------
 USB_ID="8888:1719"
 SINK_MATCH="MV-SILICON_USB_Speaker"   # substring of the PipeWire sink name
+[ -r /etc/default/usb-speaker ] && . /etc/default/usb-speaker
 
 # ---- 1) ALSA hardware PCM (root) ---------------------------------------------
 # Resolve the card index by USB id so we don't depend on card ordering.
